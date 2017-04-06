@@ -1,0 +1,26 @@
+#!/bin/bash
+#Install nodejs and npm
+
+#files to install
+NODE='nodejs nodejs-legacy'
+NPM='npm'
+
+
+#first make sure we are root!
+if ! [ $(id -u) = 0 ]; then
+  echo 'Please run as root to allow for update and install'
+  exit 1
+fi
+
+echo 'updating packages..'
+apt-get update -y 
+
+echo 'Installing nodejs and nodejs-legacy'
+apt-get install -y $NODE
+
+echo 'Installing npm'
+apt-get install -y $NPM
+
+echo 'fixing npm permissions'
+
+./lib/fix_node

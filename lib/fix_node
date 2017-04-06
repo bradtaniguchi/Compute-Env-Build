@@ -1,0 +1,31 @@
+#!/bin/bash
+#Fix npm installation location, as seen here:
+#https://docs.npmjs.com/getting-started/fixing-npm-permissions
+echo 'Fixing npm manager'
+
+
+function fix_path {
+  mkdir ~/.npm-global
+  npm config set prefix '~/.npm-global'
+  #maybe I should check if this is done already...
+  echo 'export PATH~/.npm-global/bin:\$PATH' > ~/.profile
+  source ~/.profile
+  
+  echo 'Done!'
+}
+#run npm, make sure its installed...
+if npm -v | grep -q 'command not found'; then
+  echo 'npm Does not exist!'
+  exit 1
+else
+  echo 'Npm exists'
+fi
+
+#check if the path is wrong
+if npm config get prefix | grep -q '/usr/local'; then
+  echo 'Wrong path!'
+  #fix path
+  fix_path
+else
+  echo 'path good'
+fi

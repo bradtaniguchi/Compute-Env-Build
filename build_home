@@ -1,0 +1,25 @@
+#!/bin/bash
+
+echo 'Building conf home...'
+
+URL="https://script.google.com/macros/s/AKfycbzCQvWB6xSbLx1hbGCAZJyB4E5OQTAcemKbZlLMDkX8yeSKxh8/exec?file="
+
+function get_vimrc {
+  echo 'Getting Vimrc from AppScript code..'
+  VIMRC_NAME="vimrc"
+  VIMRC_CALL="$URL$VIMRC_NAME"
+  FILENAME="vimrc"
+  wget $VIMRC_CALL -O $FILENAME
+}
+
+function get_tmux {
+  echo 'Getting tmux.conf from AppScript code..'
+  TMUX_NAME="tmux.conf"
+  TMUX_CALL="$URL$TMUX_NAME"
+  FILENAME="tmux.conf"
+  wget $TMUX_CALL -O $FILENAME
+}
+
+#Call functions
+get_vimrc
+get_tmux
